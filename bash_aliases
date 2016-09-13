@@ -1,0 +1,85 @@
+# -*- mode: sh -*-
+
+## bash aliases and functions
+
+maybe_append_path()
+{
+    if [[ -d $1 ]];
+    then
+        case ":$PATH:" in
+            *":$1:"*) :;;
+            *) export PATH=${PATH}:$1;;
+        esac
+    fi
+}
+
+maybe_prepend_path()
+{
+    if [[ -d $1 ]];
+    then
+        case ":$PATH:" in
+            *":$1:"*) :;;
+            *) export PATH=$1:${PATH};;
+        esac
+    fi
+}
+
+maybe_source_file()
+{
+    if [[ -r $1 ]];
+    then
+        . $1;
+    fi
+}
+
+# OS-X specific aliases
+if [[ $PLATFORM == 'Darwin' ]];
+then
+    alias svn='xcrun svn'
+    alias f='open -a Finder ./' # f: Opens current directory in MacOS Finder
+    alias c='clear' # c: Clear terminal display
+    alias path='echo -e ${PATH//:/\\n}' # path: Echo all executable Paths
+    alias DT='tee ~/Desktop/terminalOut.txt' # DT: Pipe content to file on MacOS Desktop
+
+fi
+
+# Linux specific aliases
+if [[ $PLATFORM == 'Linux' ]];
+then
+    alias ls='ls --color'
+    alias open='xdg-open'
+fi
+
+# FreeBSD specific aliases
+# N/A
+
+# Common aliases
+alias setuptex='. ${HOME}/context/tex/setuptex'
+alias ducks='du -cms *|sort -rn|head -11' # ducks: List top ten largest files/directories in current directory
+alias showOptions='shopt' # showOptions: display bash options settings
+alias fixStty='stty sane' # fixStty: Restore terminal settings when screwed up
+
+alias qemacs="emacs -nw -q $*" 
+
+# Kinvey aliases / functions
+
+# Jump to the Kinvey source project given
+function kksrc()
+{
+  local project=$1 tpath=~/Documents/Kinvey/src/
+	if [ -d $tpath/$project ];
+	then
+		tpath=${tpath}${project}
+	fi
+	cd $tpath
+}
+
+_kksrc()
+{
+        local path dirs cur=${COMP_WORDS[COMP_CWORD]}
+        path=~/Documents/Kinvey/src/
+        dirs=$(cd $path && ls -1d *)
+        COMPREPLY=( $(compgen -W "$dirs" -- $cur) )
+}
+
+complete -F _kksrc kksrc
