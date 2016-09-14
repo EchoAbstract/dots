@@ -162,4 +162,8 @@ fi
 #PERL_MB_OPT="--install_base \"/Users/brian/perl5\""; export PERL_MB_OPT;
 #PERL_MM_OPT="INSTALL_BASE=/Users/brian/perl5"; export PERL_MM_OPT;
 
-PS1="\[$(tput setaf 6)\]\u\[$(tput sgr0)\] @ \[$(tput setaf 3)\]\h\[$(tput sgr0)\] : \[$(tput setaf 2)\]\W\[$(tput sgr0)\] \\$ \[$(tput sgr0)\]"
+. ~/dots/scripts/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+export GIT_PS1_SHOWCOLORHINTS=1
+PROMPT_COMMAND='__git_ps1 "\[$(tput setaf 6)\]\u\[$(tput sgr0)\] @ \[$(tput setaf 3)\]\h\[$(tput sgr0)\] : \[$(tput setaf 2)\]\W\[$(tput sgr0)\]" " \\$ \[$(tput sgr0)\]"'
+
