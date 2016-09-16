@@ -32,6 +32,11 @@ maybe_source_file()
     fi
 }
 
+pidof()
+{
+    ps -ef | grep -i $1 | grep -v grep | head -1 | awk '{print $2}';
+}
+
 # OS-X specific aliases
 if [[ $PLATFORM == 'Darwin' ]];
 then
