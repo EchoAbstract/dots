@@ -133,6 +133,9 @@ then
     export PIP_RESPECT_VIRTUALENV=true
 fi
 
+# Setup Python Conda
+maybe_prepend_path /Users/bwilson/miniconda2/bin
+
 ## TeX
 ## TODO(brian): Linuxify this at some point
 if [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2015 ]]
