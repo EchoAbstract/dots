@@ -100,9 +100,6 @@ then
     maybe_append_path ${HOME}/go
 fi
 
-# Anaconda python support
-maybe_append_path ${HOME}/anaconda/bin
-
 # Tarsnap
 maybe_append_path /usr/local/tarsnap/bin
 
@@ -134,7 +131,8 @@ then
 fi
 
 # Setup Python Conda
-maybe_prepend_path /Users/bwilson/miniconda2/bin
+maybe_prepend_path ${HOME}/miniconda2/bin
+maybe_prepend_path ${HOME}/anaconda/bin
 
 ## TeX
 ## TODO(brian): Linuxify this at some point
