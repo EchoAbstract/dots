@@ -100,3 +100,25 @@ _kksrc()
 }
 
 complete -F _kksrc kksrc
+
+
+# Oblong stuff
+gspeak()
+{
+    if [[ -d /opt/oblong/g-speak$1 ]];
+    then
+        cd /opt/oblong/g-speak$1
+    else
+        cd /opt/oblong/
+    fi
+}
+
+yobuild()
+{
+    if [[ -d /opt/oblong/deps-64-$1 ]];
+    then
+        cd /opt/oblong/deps-64-$1
+    else
+        cd /opt/oblong/
+    fi
+}
