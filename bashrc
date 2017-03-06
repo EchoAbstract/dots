@@ -85,7 +85,7 @@ maybe_source_file /etc/bash_completion
 # ENV Vars
 export CLICOLOR=1
 export EDITOR=vim
-
+export INFOPATH=${INFOPATH}:${HOME}/info
 
 # Homebrew package locations
 maybe_append_path /usr/local/share/npm/bin
