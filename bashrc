@@ -141,6 +141,11 @@ then
     export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
     export MANPATH=$MANPATH:/usr/local/texlive/2015/texmf-dist/doc/man
     export INFOPATH=$INFOPATH:/usr/local/texlive/2015/texmf-dist/doc/info
+elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2014 ]]
+then
+    export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
+    export MANPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/man
+    export INFOPATH=$INFOPATH:/usr/local/texlive/2014/texmf-dist/doc/info
 fi
 
 ## CUDA
