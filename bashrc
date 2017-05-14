@@ -104,7 +104,7 @@ fi
 maybe_append_path /usr/local/tarsnap/bin
 
 # RBENV
-if which rbenv > /dev/null;
+if which rbenv > /dev/null 2>&1;
 then
     eval "$(rbenv init -)"
 fi
