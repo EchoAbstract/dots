@@ -84,7 +84,7 @@ maybe_source_file /etc/bash_completion
 
 # ENV Vars
 export CLICOLOR=1
-export EDITOR=vim
+export EDITOR=qemacs
 export INFOPATH=${INFOPATH}:${HOME}/info
 
 # Homebrew package locations
