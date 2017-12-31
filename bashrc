@@ -131,6 +131,7 @@ then
 fi
 
 # Setup Python Conda
+maybe_prepend_path ${HOME}/miniconda3/bin
 maybe_prepend_path ${HOME}/miniconda2/bin
 maybe_prepend_path ${HOME}/anaconda/bin
 
