@@ -97,7 +97,7 @@ maybe_append_path /usr/local/go/bin
 if [[ -d ${HOME}/go ]]
 then
     export GOPATH=${HOME}/go
-    maybe_append_path ${HOME}/go
+    maybe_append_path ${HOME}/go/bin
 fi
 
 # Tarsnap
@@ -131,6 +131,7 @@ then
 fi
 
 # Setup Python Conda
+maybe_prepend_path ${HOME}/miniconda3/bin
 maybe_prepend_path ${HOME}/miniconda2/bin
 maybe_prepend_path ${HOME}/anaconda/bin
 
