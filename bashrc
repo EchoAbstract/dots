@@ -136,7 +136,7 @@ maybe_prepend_path ${HOME}/miniconda2/bin
 maybe_prepend_path ${HOME}/anaconda/bin
 
 ## TeX
-## TODO(brian): Linuxify this at some point
+## Linux "just works" at the moment
 if [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2015 ]]
 then
     export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
@@ -150,7 +150,12 @@ then
 fi
 
 ## CUDA
-## TODO(brian): Linuxify this at some point
+if [[ $PLATFORM == 'Linux' && -d /usr/local/cuda ]];
+then
+    maybe_append_path /usr/local/cuda/bin
+fi
+
+# Deprecated, since Apple doesn't ship nvidia at the moment
 if [[ $PLATFORM == 'Darwin' && -d /Developer/NVIDIA/CUDA-7.0/bin ]]
 then
     maybe_append_path /Developer/NVIDIA/CUDA-7.0/bin
