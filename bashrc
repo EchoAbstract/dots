@@ -159,11 +159,11 @@ fi
 
 ##### Plan 9 Support #######
 # This needs to be "enabled"
-# if [ -d /usr/local/plan9 ];
-# then
-#     export PLAN9=/usr/local/plan9
-#     export PATH=$PATH:$PLAN9/bin
-# fi
+if [[ -d /usr/local/plan9  && -f ${HOME}/lib/plumbing ]];
+then
+    export PLAN9=/usr/local/plan9
+    export PATH=$PATH:$PLAN9/bin
+fi
 
 ### PERL
 #PERL_MB_OPT="--install_base \"/Users/brian/perl5\""; export PERL_MB_OPT;
@@ -173,4 +173,3 @@ fi
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWCOLORHINTS=1
 PROMPT_COMMAND='__git_ps1 "\[$(tput setaf 6)\]\u\[$(tput sgr0)\] @ \[$(tput setaf 3)\]\h\[$(tput sgr0)\] : \[$(tput setaf 2)\]\W\[$(tput sgr0)\]" " \\$ \[$(tput sgr0)\]"'
-
