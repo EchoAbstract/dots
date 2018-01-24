@@ -76,8 +76,10 @@ alias ducks='du -cms *|sort -rn|head -11' # ducks: List top ten largest files/di
 alias showOptions='shopt' # showOptions: display bash options settings
 alias fixStty='stty sane' # fixStty: Restore terminal settings when screwed up
 
-alias qemacs="emacs -nw -q $*" 
-alias ctop="docker run --name ctop -it --rm -v /var/run/docker.sock:/var/run/docker.sock ctop"
+alias qemacs="emacs -nw -q $*"
+
+# Docker aliases
+alias ctop="docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest"
 
 # Kinvey aliases / functions
 
