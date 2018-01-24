@@ -77,6 +77,7 @@ alias showOptions='shopt' # showOptions: display bash options settings
 alias fixStty='stty sane' # fixStty: Restore terminal settings when screwed up
 
 alias qemacs="emacs -nw -q $*" 
+alias ctop="docker run --name ctop -it --rm -v /var/run/docker.sock:/var/run/docker.sock ctop"
 
 # Kinvey aliases / functions
 
