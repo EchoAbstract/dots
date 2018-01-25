@@ -134,10 +134,16 @@ fi
 maybe_prepend_path ${HOME}/miniconda3/bin
 maybe_prepend_path ${HOME}/miniconda2/bin
 maybe_prepend_path ${HOME}/anaconda/bin
+maybe_prepend_path ${HOME}/anaconda3/bin
 
 ## TeX
 ## Linux "just works" at the moment
-if [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2015 ]]
+if [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2017 ]]
+then
+    export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-darwin
+    export MANPATH=$MANPATH:/usr/local/texlive/2017/texmf-dist/doc/man
+    export INFOPATH=$INFOPATH:/usr/local/texlive/2017/texmf-dist/doc/info
+elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2015 ]]
 then
     export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
     export MANPATH=$MANPATH:/usr/local/texlive/2015/texmf-dist/doc/man
