@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+
+
+from os import getenv, environ
+import subprocess
+
+home_dir = getenv('HOME')
+picture_dir = home_dir + '/Pictures/Wallpapers'
+
+xrandr_output = subprocess.getoutput("xrandr")
+
+screens = []
+
+for output in xrandr_output.splitlines():
+    if output.startswith('Screen '):
+        screens.append(output)
+
+def parse_screen(screen_line):
+    info = {}
+
+    colon_idx = screen_line.find(':')
+    info['number'] = screen_line[screen_line.find(' ') + 1:colon_idx]
+
+    res = [x.strip() for x in screen_line[colon_idx+1:].split(',')][1].split(' ')
+    info['width'] = int(res[1])
+    info['height'] = int(res[3])
+
+    return info
+    
+
+
+env_for_feh = environ.copy()
+for screen in screens:
+    screen_info = parse_screen(screen)
+    print("Setting wallpaper for screen " + screen_info['number'])
+    env_for_feh['DISPLAY'] = ":0." + screen_info['number']
+
+    cmd = ['feh', '--no-fehbg']
+    if screen_info['width'] > 2560:
+        cmd.append('--bg-max')
+    else:
+        cmd.append('--bg-fill')
+    cmd.append('--randomize')
+    cmd.append(picture_dir)
+    subprocess.run(cmd, env=env_for_feh)
+    
+
+
+    
