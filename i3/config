@@ -153,8 +153,8 @@ bindsym $mod+r mode "resize"
 
 # Wallpaper
 # exec --no-startup-id feh --bg-fill ${HOME}/Pictures/central-park2.jpg
-exec --no-startup-id ${HOME}/dots/bin/refresh-background
-bindsym $mod+b exec --no-startup-id ${HOME}/dots/bin/refresh-background
+exec --no-startup-id refresh-background
+bindsym $mod+b exec --no-startup-id refresh-background
 
 
 # lock screen
