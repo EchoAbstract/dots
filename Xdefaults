@@ -57,3 +57,10 @@ URxvt.boldFont:xft:Go Mono:pixelsize=12,style=Bold
 Urxvt.transparent:   true
 Urxvt.shading:       20
 Urxvt.scrollBar:     false
+
+urxvt.font:xft:Go Mono:pixelsize=12,style=Regular
+urxvt.boldFont:xft:Go Mono:pixelsize=12,style=Bold
+
+urxvt.transparent:   true
+urxvt.shading:       20
+urxvt.scrollBar:     false

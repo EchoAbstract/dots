@@ -100,6 +100,9 @@ then
     maybe_append_path ${HOME}/go/bin
 fi
 
+# Setup a modern clang/llvm toolchain
+maybe_append_path ${HOME}/LLVM/latest/bin
+
 # Tarsnap
 maybe_append_path /usr/local/tarsnap/bin
 
