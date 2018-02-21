@@ -75,6 +75,7 @@ alias setuptex='. ${HOME}/context/tex/setuptex'
 alias ducks='du -cms *|sort -rn|head -11' # ducks: List top ten largest files/directories in current directory
 alias showOptions='shopt' # showOptions: display bash options settings
 alias fixStty='stty sane' # fixStty: Restore terminal settings when screwed up
+alias fixKeyboardSpeed='xset r rate 160 60'
 
 alias qemacs="emacs -nw -q $*"
 
