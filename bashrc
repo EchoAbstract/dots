@@ -35,6 +35,12 @@ maybe_append_path ${HOME}/Unix/sbin
 maybe_append_path /u/sw/bin
 maybe_append_path /u/sw/sbin
 
+# Sometimes tput can get confused as to where terminfo is
+# so far (need to check fedora) it's here:
+if [[ -d /usr/share/terminfo ]]
+then
+  export TERMINFO=/usr/share/terminfo
+fi
 
 # System-wide .bashrc file for interactive bash(1) shells.
 if [[ -z "$PS1" ]]
