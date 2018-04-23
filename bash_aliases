@@ -2,6 +2,11 @@
 
 ## bash aliases and functions
 
+reset_path()
+{
+    export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+}
+
 maybe_append_path()
 {
     if [[ -d $1 ]];
@@ -105,6 +110,10 @@ _kksrc()
 
 complete -F _kksrc kksrc
 
+
+# Node / NPM
+alias npm-packages='npm -g ls --depth 0'
+alias gnpm='npm -g '
 
 # Oblong stuff
 gspeak()

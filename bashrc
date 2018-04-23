@@ -26,6 +26,7 @@ maybe_prepend_path ${HOME}/bin
 
 # freedesktop software installation location
 maybe_append_path ${HOME}/.local/bin
+maybe_append_path ${HOME}/.local/sbin
 
 # Software I build myself
 maybe_append_path ${HOME}/sw/bin
@@ -91,7 +92,7 @@ maybe_source_file /etc/bash_completion
 # ENV Vars
 export CLICOLOR=1
 export EDITOR=qemacs
-export INFOPATH=${INFOPATH}:${HOME}/info
+export INFOPATH=/usr/share/info:/usr/local/share/info:${INFOPATH}:${HOME}/sw/share/info:${HOME}/.local/share/info:${HOME}/info
 
 # Homebrew package locations
 maybe_append_path /usr/local/share/npm/bin
