@@ -49,10 +49,10 @@ xterm*font: 7x13
 ! Xft.hinting:    1
 ! Xft.antialias:  1
 
-!URxvt.font:xft:Inconsolata:pixelsize=27,style=Medium, xft:Symbola:pixelsize=19,style=Regular
-!URxvt.boldFont:xft:Inconsolata:style=Bold,pixelsize=27, xft:Symbola:pixelsize=19,style=Regular
-URxvt.font:xft:Go Mono:pixelsize=12,style=Regular
-URxvt.boldFont:xft:Go Mono:pixelsize=12,style=Bold
+URxvt.font:xft:Inconsolata:pixelsize=11,style=Medium, xft:Symbola:pixelsize=11,style=Regular
+URxvt.boldFont:xft:Inconsolata:style=Bold,pixelsize=11, xft:Symbola:pixelsize=11,style=Regular
+!URxvt.font:xft:Go Mono:pixelsize=12,style=Regular
+!URxvt.boldFont:xft:Go Mono:pixelsize=12,style=Bold
 
 Urxvt.transparent:   true
 Urxvt.shading:       20
@@ -64,3 +64,90 @@ urxvt.boldFont:xft:Go Mono:pixelsize=12,style=Bold
 urxvt.transparent:   true
 urxvt.shading:       20
 urxvt.scrollBar:     false
+xosview*font: 7x13
+!xosview*captions: False
+xosview*captions: True
+xosview*labels: True
+xosview*meterLabelColor: #011627
+xosview*usedlabels: True
+xosview*usedLabelColor: #011627
+xosview*background: #FDFFFC
+xosview*foreground: #011627
+xosview*graphNumCols: 256
+xosview*geometry: 350x900
+
+xosview*load: True
+xosview*loadGraph: True
+xosview*loadPriority: 10
+xosview*loadWarnColor: #E71D36
+xosview*loadProcColor: #FF9F1C
+xosview*loadIdleColor: #2EC4B6
+xosview*loadWarnThreshold: 4
+xosview*loadCpuSpeed: True
+
+xosview*cpu: True
+xosview*cpuDecay: True
+xosview*cpuGraph: True
+xosview*cpuFormat: all
+xosview*cpuUserColor: #FF9F1C
+xosview*cpuNiceColor: #FF9F1C
+xosview*cpuSystemColor: #E71D36
+xosview*cpuInterruptColor: #E71D36
+xosview*cpuFreeColor: #2EC4B6
+
+xosview*mem: True
+xosview*memGraph: False
+!xosview*memGraph: True
+
+xosview*memUsedColor: #E71D36
+xosview*memSharedColor: #FF9F1C
+xosview*memBufferColor: #FF9F1C
+xosview*memCacheColor: #FF9F1C
+xosview*memFreeColor: #2EC4B6
+
+xosview*swap: True
+xosview*swapGraph: True
+
+xosview*swapUsedColor: #E71D36
+xosview*swapFreeColor: #2EC4B6
+
+xosview*page: True
+xosview*pageGraph: True
+xosview*pagePriority: 10
+
+xosview*pageInColor: #2EC4B6
+xosview*pageOutColor: #E71D36
+xosview*pageIdleColor: #FF9F1C
+
+xosview*gfx: True
+xosview*gfxGraph: True
+
+xosview*net: True
+xosview*netGraph: True
+xosview*netPriority: 10
+xosview*netBandwidth: 2000000
+xosview*netIface: False
+xosview*netInColor: #2EC4B6
+xosview*netOutColor: #E71D36
+xosview*netBackground: #FF9F1C
+
+xosview*interrupts: False
+
+xosview*disk: True
+xosview*diskGraph: True
+xosview*diskUsedColor: #E71D36
+xosview*diskIdleColor: #FF9F1C
+xosview*diskWriteColor: #E71D36
+xosview*diskReadColor: #2EC4B6
+
+xosview*lmstemp: False
+xosview*lmstempGraph: True
+xosview*lmstempHighest: 100
+xosview*lmstempActColor: #AEAECE
+xosview*lmstempHighColor: #FFD324
+xosview*lmstempIdleColor: #DADAEA
+xosview*lmstempLabel1: CPU
+xosview*lmstemp1: temp1
+xosview*lmstempLabel2: DSK
+xosview*lmstemp2: temp7
+
