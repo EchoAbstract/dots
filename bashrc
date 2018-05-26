@@ -82,7 +82,7 @@ HISTFILESIZE=20000
 # Mac
 if [[ -x /usr/local/bin/brew ]]
 then
-    maybe_source_file `brew --prefix`/etc/bash_completion
+    maybe_source_file $(brew --prefix)/etc/bash_completion
 fi
 
 maybe_source_file /usr/share/bash-completion/bash_completion
