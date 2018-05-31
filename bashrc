@@ -194,4 +194,12 @@ fi
 export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWCOLORHINTS=1
 
-export PS1='\[\033]0;\w\007\][\[$(tput setaf 3)\]\h\[$(tput sgr0)\]$(__git_ps1)] '
+
+case "$TERM" in
+    xterm*)
+        export PS1='\[\033]0;\w\007\][\[$(tput setaf 3)\]\h\[$(tput sgr0)\]$(__git_ps1)] '
+        ;;
+    *)
+        export PS1='[\h$(__git_ps1)] '
+        ;;
+esac
