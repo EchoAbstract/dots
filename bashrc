@@ -199,6 +199,9 @@ case "$TERM" in
     xterm*)
         export PS1='\[\033]0;\w\007\][\[$(tput setaf 3)\]\h\[$(tput sgr0)\]$(__git_ps1)] '
         ;;
+   *256color*)
+        export PS1='\[\033]0;\w\007\][\[$(tput setaf 3)\]\h\[$(tput sgr0)\]$(__git_ps1)] '
+        ;;
     *)
         export PS1='[\h$(__git_ps1)] '
         ;;
