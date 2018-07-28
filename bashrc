@@ -190,19 +190,12 @@ fi
 #PERL_MB_OPT="--install_base \"/Users/brian/perl5\""; export PERL_MB_OPT;
 #PERL_MM_OPT="INSTALL_BASE=/Users/brian/perl5"; export PERL_MM_OPT;
 
-. ~/dots/scripts/git-prompt.sh
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWCOLORHINTS=1
+if [[ $PLATFORM == 'Darwin' ]]
+then
+    export CLICOLOR=1
+    export LSCOLORS='GxFxCxDxbxegedabagaced'
+else
+    maybe_source_file ${HOME}/dots/LS_COLORS
+fi
 
-
-case "$TERM" in
-    xterm*)
-        export PS1='\[\033]0;\w\007\][\[$(tput setaf 3)\]\h\[$(tput sgr0)\]$(__git_ps1)] '
-        ;;
-   *256color*)
-        export PS1='\[\033]0;\w\007\][\[$(tput setaf 3)\]\h\[$(tput sgr0)\]$(__git_ps1)] '
-        ;;
-    *)
-        export PS1='[\h$(__git_ps1)] '
-        ;;
-esac
+maybe_source_file ${HOME}/dots/prompt.sh
