@@ -39,10 +39,10 @@ FG="\[\e[38;5;208m\]"
 # RGBA index:
 #FG="\[\e[38;2;0;174;255m\]"
 
-export PS1="$BG\u\[\e[0m\]@$FG\H ${BG}\w${FG}\$(__git_ps1) ${BG}$endchar \[\e[0;0m\]"
+export PS1="$BG\u\[\e[0m\]@$FG\h ${BG}\w${FG}\$(__git_ps1) ${BG}$endchar \[\e[0;0m\]"
 
 if [ "${TERM:0:5}" = "xterm" ]; then
-  export PS1="\[\e]2;\u@\H :: \w\a\]$PS1"
+  export PS1="\[\e]2;\u@\h :: \w\a\]$PS1"
 fi
 
 shopt -s checkwinsize
