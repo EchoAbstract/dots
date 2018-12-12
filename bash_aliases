@@ -68,7 +68,12 @@ fi
 # Linux specific aliases
 if [[ $PLATFORM == 'Linux' ]];
 then
-    alias ls='ls --color'
+    # Hack for now
+    if [[ $- = *i* ]]
+    then
+	alias ls='ls --color'
+    fi
+
     alias open='xdg-open'
     alias ducks='du -xcms *|sort -rn|head -11' # ducks: List top ten largest files/directories in current directory
 fi

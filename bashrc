@@ -83,7 +83,7 @@ TEXROOT=/usr/local/texlive
 if [[ -d ${TEXROOT} ]]
 then
     # We may have a texlive installation...
-    latest_year=$(cd $TEXROOT && \ls -1d 2* | sort -rn | head -1)
+    latest_year=$(cd $TEXROOT && ls -1d 2* | sort -rn | head -1)
 
     if [[ ! -z "$latest_year" ]]
     then
