@@ -36,12 +36,99 @@ maybe_append_path ${HOME}/Unix/sbin
 maybe_append_path /u/sw/bin
 maybe_append_path /u/sw/sbin
 
+# Homebrew package locations
+maybe_append_path /usr/local/share/npm/bin
+maybe_append_path /usr/local/opt/ruby/bin
+
+# go Support
+maybe_append_path /usr/local/go/bin
+
+if [[ -d ${HOME}/go ]]
+then
+    export GOPATH=${HOME}/go
+    maybe_append_path ${HOME}/go/bin
+fi
+
+# Setup a modern clang/llvm toolchain
+maybe_append_path ${HOME}/LLVM/latest/bin
+
+# Tarsnap
+maybe_append_path /usr/local/tarsnap/bin
+
+
+# OPAM configuration
+if [[ -f $HOME/.opam/opam-init/init.sh ]]
+then
+    . $HOME/.opam/opam-init/init.sh
+fi
+
+
+# Setup Python versions
+if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]
+then
+    export WORKON_HOME=$HOME/.virtualenvs
+    source /usr/local/bin/virtualenvwrapper.sh
+    export PIP_VIRTUALENV_BASE=$WORKON_HOME
+    export PIP_RESPECT_VIRTUALENV=true
+fi
+
+# Setup Python Conda
+maybe_prepend_path ${HOME}/miniconda3/bin
+maybe_prepend_path ${HOME}/miniconda2/bin
+maybe_prepend_path ${HOME}/anaconda/bin
+maybe_prepend_path ${HOME}/anaconda3/bin
+
+## TeX
+## Linux "just works" at the moment
+if [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2018 ]]
+then
+    export PATH=$PATH:/usr/local/texlive/2018/bin/x86_64-darwin
+    export MANPATH=$MANPATH:/usr/local/texlive/2018/texmf-dist/doc/man
+    export INFOPATH=$INFOPATH:/usr/local/texlive/2018/texmf-dist/doc/info
+elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2017 ]]
+then
+    export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-darwin
+    export MANPATH=$MANPATH:/usr/local/texlive/2017/texmf-dist/doc/man
+    export INFOPATH=$INFOPATH:/usr/local/texlive/2017/texmf-dist/doc/info
+elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2015 ]]
+then
+    export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
+    export MANPATH=$MANPATH:/usr/local/texlive/2015/texmf-dist/doc/man
+    export INFOPATH=$INFOPATH:/usr/local/texlive/2015/texmf-dist/doc/info
+elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2014 ]]
+then
+    export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
+    export MANPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/man
+    export INFOPATH=$INFOPATH:/usr/local/texlive/2014/texmf-dist/doc/info
+fi
+
+## CUDA
+if [[ $PLATFORM == 'Linux' && -d /usr/local/cuda ]];
+then
+    maybe_append_path /usr/local/cuda/bin
+fi
+
+# Deprecated, since Apple doesn't ship nvidia at the moment
+if [[ $PLATFORM == 'Darwin' && -d /Developer/NVIDIA/CUDA-7.0/bin ]]
+then
+    maybe_append_path /Developer/NVIDIA/CUDA-7.0/bin
+    export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Developer/NVIDIA/CUDA-7.0/lib
+fi
+
+
 # Sometimes tput can get confused as to where terminfo is
 # so far (need to check fedora) it's here:
 if [[ -d /usr/share/terminfo ]]
 then
   export TERMINFO=/usr/share/terminfo
 fi
+
+export INFOPATH=/usr/share/info:/usr/local/share/info:${INFOPATH}:${HOME}/sw/share/info:${HOME}/.local/share/info:${HOME}/info
+
+
+###############################
+# Non interactive stuff only! #
+###############################
 
 # System-wide .bashrc file for interactive bash(1) shells.
 if [[ -z "$PS1" ]]
@@ -89,29 +176,7 @@ maybe_source_file /usr/share/bash-completion/bash_completion
 maybe_source_file /etc/bash_completion
 
 
-# ENV Vars
 export CLICOLOR=1
-export EDITOR=qemacs
-export INFOPATH=/usr/share/info:/usr/local/share/info:${INFOPATH}:${HOME}/sw/share/info:${HOME}/.local/share/info:${HOME}/info
-
-# Homebrew package locations
-maybe_append_path /usr/local/share/npm/bin
-maybe_append_path /usr/local/opt/ruby/bin
-
-# go Support
-maybe_append_path /usr/local/go/bin
-
-if [[ -d ${HOME}/go ]]
-then
-    export GOPATH=${HOME}/go
-    maybe_append_path ${HOME}/go/bin
-fi
-
-# Setup a modern clang/llvm toolchain
-maybe_append_path ${HOME}/LLVM/latest/bin
-
-# Tarsnap
-maybe_append_path /usr/local/tarsnap/bin
 
 # RBENV
 if which rbenv > /dev/null 2>&1;
@@ -126,57 +191,10 @@ then
 fi
 
 # Setup Java versions
-if [[ -x /usr/libexec/java_home ]]
-then
-    export JAVA_HOME=$(/usr/libexec/java_home)
-fi
-
-# Setup Python versions
-if [[ -f /usr/local/bin/virtualenvwrapper.sh ]]
-then
-    export WORKON_HOME=$HOME/.virtualenvs
-    source /usr/local/bin/virtualenvwrapper.sh
-    export PIP_VIRTUALENV_BASE=$WORKON_HOME
-    export PIP_RESPECT_VIRTUALENV=true
-fi
-
-# Setup Python Conda
-maybe_prepend_path ${HOME}/miniconda3/bin
-maybe_prepend_path ${HOME}/miniconda2/bin
-maybe_prepend_path ${HOME}/anaconda/bin
-maybe_prepend_path ${HOME}/anaconda3/bin
-
-## TeX
-## Linux "just works" at the moment
-if [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2017 ]]
-then
-    export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-darwin
-    export MANPATH=$MANPATH:/usr/local/texlive/2017/texmf-dist/doc/man
-    export INFOPATH=$INFOPATH:/usr/local/texlive/2017/texmf-dist/doc/info
-elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2015 ]]
-then
-    export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
-    export MANPATH=$MANPATH:/usr/local/texlive/2015/texmf-dist/doc/man
-    export INFOPATH=$INFOPATH:/usr/local/texlive/2015/texmf-dist/doc/info
-elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2014 ]]
-then
-    export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
-    export MANPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/man
-    export INFOPATH=$INFOPATH:/usr/local/texlive/2014/texmf-dist/doc/info
-fi
-
-## CUDA
-if [[ $PLATFORM == 'Linux' && -d /usr/local/cuda ]];
-then
-    maybe_append_path /usr/local/cuda/bin
-fi
-
-# Deprecated, since Apple doesn't ship nvidia at the moment
-if [[ $PLATFORM == 'Darwin' && -d /Developer/NVIDIA/CUDA-7.0/bin ]]
-then
-    maybe_append_path /Developer/NVIDIA/CUDA-7.0/bin
-    export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:/Developer/NVIDIA/CUDA-7.0/lib
-fi
+# if [[ -x /usr/libexec/java_home ]]
+# then
+#     export JAVA_HOME=$(/usr/libexec/java_home)
+# fi
 
 ##### Plan 9 Support #######
 # This needs to be "enabled"
