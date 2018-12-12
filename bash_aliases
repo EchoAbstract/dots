@@ -62,7 +62,7 @@ then
     alias c='clear' # c: Clear terminal display
     alias path='echo -e ${PATH//:/\\n}' # path: Echo all executable Paths
     alias DT='tee ~/Desktop/terminalOut.txt' # DT: Pipe content to file on MacOS Desktop
-
+    alias ducks='du -cms *|sort -rn|head -11' # ducks: List top ten largest files/directories in current directory
 fi
 
 # Linux specific aliases
@@ -70,6 +70,7 @@ if [[ $PLATFORM == 'Linux' ]];
 then
     alias ls='ls --color'
     alias open='xdg-open'
+    alias ducks='du -xcms *|sort -rn|head -11' # ducks: List top ten largest files/directories in current directory
 fi
 
 # FreeBSD specific aliases
@@ -77,12 +78,9 @@ fi
 
 # Common aliases
 alias setuptex='. ${HOME}/context/tex/setuptex'
-alias ducks='du -cms *|sort -rn|head -11' # ducks: List top ten largest files/directories in current directory
 alias showOptions='shopt' # showOptions: display bash options settings
 alias fixStty='stty sane' # fixStty: Restore terminal settings when screwed up
-alias fixKeyboardSpeed='xset r rate 160 60'
-
-alias qemacs="emacs -nw -q $*"
+alias fixKeyboardSpeed='xset r rate 200 30'
 
 # Docker aliases
 alias ctop="docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest"

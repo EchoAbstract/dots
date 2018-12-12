@@ -79,27 +79,27 @@ maybe_prepend_path ${HOME}/anaconda/bin
 maybe_prepend_path ${HOME}/anaconda3/bin
 
 ## TeX
-## Linux "just works" at the moment
-if [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2018 ]]
+TEXROOT=/usr/local/texlive
+if [[ -d ${TEXROOT} ]]
 then
-    export PATH=$PATH:/usr/local/texlive/2018/bin/x86_64-darwin
-    export MANPATH=$MANPATH:/usr/local/texlive/2018/texmf-dist/doc/man
-    export INFOPATH=$INFOPATH:/usr/local/texlive/2018/texmf-dist/doc/info
-elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2017 ]]
-then
-    export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-darwin
-    export MANPATH=$MANPATH:/usr/local/texlive/2017/texmf-dist/doc/man
-    export INFOPATH=$INFOPATH:/usr/local/texlive/2017/texmf-dist/doc/info
-elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2015 ]]
-then
-    export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
-    export MANPATH=$MANPATH:/usr/local/texlive/2015/texmf-dist/doc/man
-    export INFOPATH=$INFOPATH:/usr/local/texlive/2015/texmf-dist/doc/info
-elif [[ $PLATFORM == 'Darwin' && -d /usr/local/texlive/2014 ]]
-then
-    export PATH=$PATH:/usr/local/texlive/2014/bin/x86_64-darwin
-    export MANPATH=$MANPATH:/usr/local/texlive/2014/texmf-dist/doc/man
-    export INFOPATH=$INFOPATH:/usr/local/texlive/2014/texmf-dist/doc/info
+    # We may have a texlive installation...
+    latest_year=$(cd $TEXROOT && \ls -1d 2* | sort -rn | head -1)
+
+    if [[ ! -z "$latest_year" ]]
+    then
+        TEXROOT=${TEXROOT}/${latest_year}
+
+        if [[ $PLATFORM == 'Darwin' ]]
+        then
+            export PATH=$PATH:${TEXROOT}/bin/x86_64-darwin
+        elif [[ $PLATFORM == 'Linux' ]]
+        then
+            export PATH=$PATH:${TEXROOT}/bin/x86_64-linux
+        fi
+
+        export MANPATH=$MANPATH:${TEXROOT}/texmf-dist/doc/man
+        export INFOPATH=$INFOPATH:${TEXROOT}/texmf-dist/doc/info
+    fi
 fi
 
 ## CUDA
@@ -124,7 +124,6 @@ then
 fi
 
 export INFOPATH=/usr/share/info:/usr/local/share/info:${INFOPATH}:${HOME}/sw/share/info:${HOME}/.local/share/info:${HOME}/info
-
 
 ###############################
 # Non interactive stuff only! #

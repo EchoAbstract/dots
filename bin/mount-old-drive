@@ -1,0 +1,61 @@
+#!/bin/bash
+
+###############################################
+# How do you an LVM file system from a single #
+# disk from an LVM system?  Glad you asked!   #
+#                                             #
+# Follow these steps:                         #
+#                                             #
+# 1. install lvm2                             #
+# 2. Search for LVM physical volumes (pvscan) #
+# 3. Search for LVM volume groups on the      #
+#    the PVs (vgscan)                         #
+# 4. Activate any found VGs: (vgchange -ay)   #
+#    (Note: If you need to mount a VG that's  #
+#    on multiple disks, but you only have a   #
+#    single disk, then run                    #
+#    vgchange -ay --activationmode partial    #
+#    and hope for the best!                   #
+# 5. Mount any active volumes, you can find a #
+#    list of active disks via:                #
+#    sudo lvscan 2>&1   | \                   #
+#    grep  ACTIVE       | \                   #
+#    awk '{ print $2 }' | \                   #
+#    tr -d "'"                                #
+#                                             #
+#    and can mount them like:                 #
+#    mount /dev/VolumeGroupName/Vol /target   #
+#    For example:                             #
+#      sudo mount /dev/ubuntu-vg/root /mnt    #
+#                                             #
+###############################################
+
+# This first one is to prime sudo so we don't prompt again
+sudo -p "[sudo] %p's password needed to mount disks: " echo "Finding and mounting old LVM volumes"
+
+MNT_LOC=/mnt/old-lvm-volume
+
+if [[ ! -d ${MNT_LOC} ]]
+then
+    sudo mkdir -p ${MNT_LOC}
+fi
+
+echo "Scanning for physical volumes"
+sudo pvscan 2>&1 >/dev/null
+
+echo "Scanning for volume groups"
+sudo vgscan 2>&1 >/dev/null
+
+echo "Activating volume groups"
+sudo vgchange -a y 2>&1 >/dev/null
+
+
+echo "Scaning for active logical volumes"
+DISK=$(sudo lvscan 2>&1 | grep  ACTIVE | awk '{ print $2 }' | tr -d "'")
+
+
+echo "Mounting logical volumes"
+sudo mount ${DISK} ${MNT_LOC}
+
+echo "Mounted as: "
+mount | grep ${MNT_LOC}

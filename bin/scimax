@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+
+case ":$PATH:" in
+    *"conda"*) echo "Path is correct, doing nothing...";;
+    *) . /home/bwilson/.bashrc ;;
+esac
+
+
+
+/home/bwilson/.local/bin/emacs -q -l /home/bwilson/scimax/init.el -f scimax-dashboard
+
