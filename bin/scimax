@@ -1,12 +1,60 @@
 #!/usr/bin/env bash
 
 
+find_emacs()
+{
+	if [[ -f ${HOME}/.local/bin/emacs ]]
+	then
+		EM=${HOME}/.local/bin/emacs
+	elif [[ -f ${HOME}/src/emacs-mac/mac/Emacs.app/Contents/MacOS/Emacs ]]
+	then
+		EM=${HOME}/src/emacs-mac/mac/Emacs.app/Contents/MacOS/Emacs
+	elif [[ -f /usr/local/bin/emacs ]]
+	then
+		EM=/usr/local/bin/emacs
+	elif [[	-f /usr/bin/emacs ]]
+	then
+		EM=/usr/bin/emacs
+	else
+		echo "You don't have emacs installed :-("
+		exit 255
+	fi
+
+	echo ${EM}
+}
+
+if [[ z${EMACS} == z"" ]]
+then
+	EMACS=$(find_emacs)
+fi
+
+echo "Using ${EMACS} as emacs"
+
 case ":$PATH:" in
     *"conda"*) echo "Path is correct, doing nothing...";;
-    *) . /home/bwilson/.bashrc ;;
+    *) . ${HOME}/.bashrc ;;
 esac
 
+DASHBOARD=""
+
+if [[ $- != *i* ]]
+then
+	# Shell is not interactive, load the dashboard
+	DASHBOARD="-f scimax-dashboard"
+fi
+
+if [[ $# -eq 0 ]]
+then
+   	DASHBOARD="-f scimax-dashboard" 
+fi
+
+if [[ z${INHIBIT_DASHBOARD} != z"" ]]
+then
+	DASHBOARD="-f scimax-dashboard" 	
+fi
 
 
-/home/bwilson/.local/bin/emacs -q -l /home/bwilson/scimax/init.el -f scimax-dashboard
+SCIMAX_COMMAND="${EMACS} -q -l ${HOME}/scimax/init.el ${DASHBOARD}"
+
+${SCIMAX_COMMAND}
 
