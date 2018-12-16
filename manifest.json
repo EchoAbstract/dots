@@ -1,0 +1,49 @@
+{
+    "root": "HOME",
+    "files": [
+	{
+	    "dest": ".Xdefaults",
+	    "src": "Xdefaults",
+	    "type": "symlink"
+	},
+	{
+	    "dest": ".Xresources",
+	    "src": "Xdefaults",
+	    "type": "symlink"
+	},
+	{
+	    "dest": ".bash_aliases",
+	    "src": "bash_aliases",
+	    "type": "symlink"
+	},
+	{
+	    "dest": ".bash_profile",
+	    "src": "bash_profile",
+	    "type": "symlink"
+	},
+	{
+	    "dest": ".bashrc",
+	    "src": "bashrc",
+	    "type": "symlink"
+	},
+	{
+	    "dest": ".tmux.conf",
+	    "src": "tmux.conf",
+	    "type": "symlink"
+	},
+	{
+	    "file": "bin/mount-old-drive",
+	    "type": "symlink",
+	    "os": "linux"
+	},
+	{
+	    "file": "bin/refresh-background",
+	    "type": "symlink",
+	    "os": "linux"
+	},
+	{
+	    "file": "bin/scimax",
+	    "type": "symlink"
+	}
+    ]
+}
