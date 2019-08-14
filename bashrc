@@ -175,8 +175,6 @@ maybe_source_file /usr/share/bash-completion/bash_completion
 maybe_source_file /etc/bash_completion
 
 
-export CLICOLOR=1
-
 # RBENV
 if which rbenv > /dev/null 2>&1;
 then
@@ -206,13 +204,5 @@ fi
 ### PERL
 #PERL_MB_OPT="--install_base \"/Users/brian/perl5\""; export PERL_MB_OPT;
 #PERL_MM_OPT="INSTALL_BASE=/Users/brian/perl5"; export PERL_MM_OPT;
-
-if [[ $PLATFORM == 'Darwin' ]]
-then
-    export CLICOLOR=1
-    export LSCOLORS='GxFxCxDxbxegedabagaced'
-else
-    maybe_source_file ${HOME}/dots/LS_COLORS
-fi
 
 maybe_source_file ${HOME}/dots/prompt.sh

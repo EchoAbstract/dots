@@ -3,12 +3,12 @@
 
 find_emacs()
 {
-	if [[ -f ${HOME}/.local/bin/emacs ]]
-	then
-		EM=${HOME}/.local/bin/emacs
-	elif [[ -f ${HOME}/src/emacs-mac/mac/Emacs.app/Contents/MacOS/Emacs ]]
+	if [[ -f ${HOME}/src/emacs-mac/mac/Emacs.app/Contents/MacOS/Emacs ]]
 	then
 		EM=${HOME}/src/emacs-mac/mac/Emacs.app/Contents/MacOS/Emacs
+	elif [[ -f ${HOME}/.local/bin/emacs ]]
+	then
+		EM=${HOME}/.local/bin/emacs
 	elif [[ -f /usr/local/bin/emacs ]]
 	then
 		EM=/usr/local/bin/emacs

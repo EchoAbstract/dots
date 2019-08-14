@@ -68,12 +68,6 @@ fi
 # Linux specific aliases
 if [[ $PLATFORM == 'Linux' ]];
 then
-    # Hack for now
-    if [[ $- = *i* ]]
-    then
-	alias ls='ls --color'
-    fi
-
     alias open='xdg-open'
     alias ducks='du -xcms *|sort -rn|head -11' # ducks: List top ten largest files/directories in current directory
 fi
@@ -87,8 +81,14 @@ alias showOptions='shopt' # showOptions: display bash options settings
 alias fixStty='stty sane' # fixStty: Restore terminal settings when screwed up
 alias fixKeyboardSpeed='xset r rate 200 30'
 
+alias ls="ls -F"
+alias ll="ls -Fl"
+
 # Docker aliases
 alias ctop="docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest"
+
+# SSHing Things
+alias unsafe-ssh='ssh -o GlobalKnownHostsFile=/dev/null -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 
 # Kinvey aliases / functions
 
