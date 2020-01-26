@@ -197,11 +197,11 @@ fi
 
 ##### Plan 9 Support #######
 # This needs to be "enabled"
-if [[ -d /usr/local/plan9  && -f ${HOME}/lib/plumbing ]];
-then
-    export PLAN9=/usr/local/plan9
-    maybe_prepend_path $PLAN9/bin
-fi
+# if [[ -d /usr/local/plan9  && -f ${HOME}/lib/plumbing ]];
+# then
+#     export PLAN9=/usr/local/plan9
+#     maybe_prepend_path $PLAN9/bin
+# fi
 
 ### PERL
 #PERL_MB_OPT="--install_base \"/Users/brian/perl5\""; export PERL_MB_OPT;

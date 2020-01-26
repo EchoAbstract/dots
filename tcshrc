@@ -1,0 +1,13 @@
+set prompt = '[%n // plan9]%# '
+echo `clear`
+
+if ( $TERM == "xterm" ) then
+    cat ${HOME}/aart.txt
+    cat ${HOME}/plan9-help.txt
+else
+    cat ${HOME}/aart.txt | lolcat -a -s 120
+    cat ${HOME}/plan9-help.txt | lolcat -a
+endif
+
+
+

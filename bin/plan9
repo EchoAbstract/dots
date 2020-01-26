@@ -1,0 +1,10 @@
+#!/bin/sh
+
+maybe_prepend_path /usr/local/plan9/bin
+# Make sure our exes trump plan9s
+export PATH=${HOME}/bin:${PATH}
+export SHELL=rc
+
+tcsh
+
+
