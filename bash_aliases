@@ -53,6 +53,38 @@ man () {
   command man "$@"
 }
 
+path_remove_match () {
+    PATH=$(echo $PATH | tr ':' '\n' | grep -v $1 | tr '\n' ':' | sed 's/:$//');
+    export PATH;
+}
+
+listenvs () {
+    local envdir=${ENV_DIR:-${HOME}/envs}
+    for env in $(ls -1 $envdir/${1}* 2>/dev/null)
+    do
+        echo $(basename $env .env)
+    done
+}
+
+useenv () {
+    local envdir=${ENV_DIR:-${HOME}/envs}
+    local envfile=${envdir}/${1}.env
+    if [[ -e $envfile ]]
+    then
+        echo "Found $envfile, sourcing..."
+        source $envfile
+    else
+        echo "There is no $envfile, only Zuul"
+    fi
+}
+
+_useenv_comp () {
+    local first_word=${COMP_WORDS[1]}
+    local candidates=$(compgen -W "$(listenvs)" -- $first_word)
+    COMPREPLY=( $candidates )
+}
+
+complete -F _useenv_comp useenv
 
 # OS-X specific aliases
 if [[ $PLATFORM == 'Darwin' ]];
