@@ -81,6 +81,10 @@ useenv () {
 }
 
 _useenv_comp () {
+    if [ "${#COMP_WORDS[@]}" != "2" ]; then
+        return
+    fi
+
     local first_word=${COMP_WORDS[1]}
     local candidates=$(compgen -W "$(listenvs)" -- $first_word)
     COMPREPLY=( $candidates )
@@ -174,9 +178,12 @@ yobuild()
 }
 
 list_gspeak_versions() {
-    /bin/ls -1d /opt/oblong/g-speak*              \
-        | /usr/bin/sed 's_/opt/oblong/g-speak__'  \
-        | /usr/bin/sort -rn
+    local sed_bin=$(which sed)
+    local sort_bin=$(which sort)
+
+    /bin/ls -1d /opt/oblong/g-speak*            \
+        | $sed_bin 's_/opt/oblong/g-speak__'    \
+        | $sort_bin -rn
 }
 
 use_gspeak() {
@@ -193,7 +200,7 @@ use_gspeak() {
     if [[ ! -d $gs_dir ]]
     then
         echo "Can't find g-speak version ${version}"
-        exit -1
+        return -1
     fi
 
     path_remove_match oblong
@@ -220,6 +227,10 @@ use_gspeak() {
 }
 
 _use_gspeak_comp () {
+    if [ "${#COMP_WORDS[@]}" != "2" ]; then
+        return
+    fi
+
     local first_word=${COMP_WORDS[1]}
     local candidates=$(compgen -W "$(list_gspeak_versions)" -- $first_word)
     COMPREPLY=( $candidates )
