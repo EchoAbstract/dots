@@ -60,7 +60,7 @@ path_remove_match () {
 
 listenvs () {
     local envdir=${ENV_DIR:-${HOME}/envs}
-    for env in $(ls -1 $envdir/${1}* 2>/dev/null)
+    for env in $(/bin/ls -1 $envdir/${1}* 2>/dev/null)
     do
         echo $(basename $env .env)
     done
@@ -169,4 +169,61 @@ yobuild()
     else
         cd /opt/oblong/
     fi
+}
+
+list_gspeak_versions() {
+    /bin/ls -1d /opt/oblong/g-speak*              \
+        | /usr/bin/sed 's_/opt/oblong/g-speak__'  \
+        | /usr/bin/sort -rn
+}
+
+use_gspeak() {
+    local version=$1
+
+    # FIXME: Doesn't handle the case with 0 g-speaks installed
+    if [[ -z "$version" ]]
+    then
+        version=$(list_gspeak_versions | /usr/bin/head -1)
+    fi
+
+    local gs_dir=/opt/oblong/g-speak${version}/bin
+
+    if [[ ! -d $gs_dir ]]
+    then
+        echo "Can't find g-speak version ${version}"
+        exit -1
+    fi
+
+    path_remove_match oblong
+    PATH=${gs_dir}:${PATH}
+
+    local obs_bin=$(which obs)
+
+    if [[ -z "$obs_bin" ]]
+    then
+        echo "Please install obs to determine the deps path"
+    fi
+
+    local deps_version=$(obs yovo2yoversion $version)
+    local deps_dir=/opt/oblong/deps-64-${deps_version}/bin
+
+    if [[ ! -d $deps_dir ]]
+    then
+        echo "Can't find g-speak version ${version} dependencies..."
+    fi
+
+    PATH=${deps_dir}:${PATH}
+    export PATH
+}
+
+_use_gspeak_comp () {
+    local first_word=${COMP_WORDS[1]}
+    local candidates=$(compgen -W "$(list_gspeak_versions)" -- $first_word)
+    COMPREPLY=( $candidates )
+}
+
+complete -F _use_gspeak_comp use_gspeak
+
+no_use_gspeak() {
+    path_remove_match oblong
 }
