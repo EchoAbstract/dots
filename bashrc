@@ -83,18 +83,20 @@ TEXROOT=/usr/local/texlive
 if [[ -d ${TEXROOT} ]]
 then
     # We may have a texlive installation...
-    latest_year=$(cd $TEXROOT && ls -1d 2* | sort -rn | head -1)
+    latest_year=$(cd $TEXROOT && /bin/ls -1d 2* | sort -rn | head -1)
 
     if [[ ! -z "$latest_year" ]]
     then
+        # Remove any older versions that might be in our path
+        path_remove_match texlive
         TEXROOT=${TEXROOT}/${latest_year}
 
         if [[ $PLATFORM == 'Darwin' ]]
         then
-            export PATH=$PATH:${TEXROOT}/bin/x86_64-darwin
+            maybe_append_path ${TEXROOT}/bin/x86_64-darwin
         elif [[ $PLATFORM == 'Linux' ]]
         then
-            export PATH=$PATH:${TEXROOT}/bin/x86_64-linux
+            maybe_append_path ${TEXROOT}/bin/x86_64-linux
         fi
 
         export MANPATH=$MANPATH:${TEXROOT}/texmf-dist/doc/man
@@ -123,7 +125,7 @@ then
   export TERMINFO=/usr/share/terminfo
 fi
 
-export INFOPATH=/usr/share/info:/usr/local/share/info:${INFOPATH}:${HOME}/sw/share/info:${HOME}/.local/share/info:${HOME}/info
+INFOPATH+=/usr/share/info:/usr/local/share/info:${INFOPATH}:${HOME}/sw/share/info:${HOME}/.local/share/info:${HOME}/info
 
 ###############################
 # Non interactive stuff only! #
@@ -198,7 +200,7 @@ fi
 if [[ -d /usr/local/plan9  && -f ${HOME}/lib/plumbing ]];
 then
     export PLAN9=/usr/local/plan9
-    export PATH=$PATH:$PLAN9/bin
+    maybe_prepend_path $PLAN9/bin
 fi
 
 ### PERL

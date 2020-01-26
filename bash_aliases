@@ -13,7 +13,8 @@ maybe_append_path()
     then
         case ":$PATH:" in
             *":$1:"*) :;;
-            *) export PATH=${PATH}:$1;;
+#            *) export PATH=${PATH}:$1;;
+            *) export PATH="${PATH:+${PATH}:}$1";;
         esac
     fi
 }
@@ -24,7 +25,8 @@ maybe_prepend_path()
     then
         case ":$PATH:" in
             *":$1:"*) :;;
-            *) export PATH=$1:${PATH};;
+            # *) export PATH=$1:${PATH};;
+            *) export PATH="$1${PATH:+:${PATH}}"
         esac
     fi
 }
@@ -195,7 +197,7 @@ use_gspeak() {
     fi
 
     path_remove_match oblong
-    PATH=${gs_dir}:${PATH}
+    maybe_prepend_path $gs_dir
 
     local obs_bin=$(which obs)
 
@@ -206,14 +208,15 @@ use_gspeak() {
 
     local deps_version=$(obs yovo2yoversion $version)
     local deps_dir=/opt/oblong/deps-64-${deps_version}/bin
+    local deps_sdir=/opt/oblong/deps-64-${deps_version}/sbin
 
     if [[ ! -d $deps_dir ]]
     then
         echo "Can't find g-speak version ${version} dependencies..."
     fi
 
-    PATH=${deps_dir}:${PATH}
-    export PATH
+    maybe_prepend_path $deps_sdir
+    maybe_prepend_path $deps_dir
 }
 
 _use_gspeak_comp () {
